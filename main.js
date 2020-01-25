@@ -19,7 +19,7 @@ class getData {
 		let data = fetch('https://data-live.flightradar24.com/zones/fcgi/feed.js?bounds=56.84,55.27,33.48,41.48')
 			.then((response) => {
 				if (!response.ok) { console.log(response.status + ': ' + response.statusText); return;}
-				response.json().then(data => createTable(data))
+				response.json().then(data => createTable(data)).then(setTimeout(()=>this.fetch(),3000))
 			})
 			.catch((error) => console.log('error', error))
 		return data;
@@ -61,4 +61,3 @@ function createTable(data) {
 };
 const dataFromAPI = new getData;
 dataFromAPI.fetch();
-setInterval(() => dataFromAPI.fetch(), 4000);
